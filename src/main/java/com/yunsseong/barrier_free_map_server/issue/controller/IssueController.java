@@ -16,17 +16,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/issues")
 public class IssueController {
 
     private final IssueService issueService;
 
-    @GetMapping("/issues")
+    @GetMapping
     public ResponseEntity<ApiResponse<List<Issue>>> queryIssues() {
         return ApiResponseFactory.success(issueService.getIssues());
     }
 
-    @PostMapping("/issue")
+    @PostMapping
     public ResponseEntity<ApiResponse<Void>> submitIssue(IssueRequest issueRequest) {
         issueService.postIssue(issueRequest);
         return ApiResponseFactory.success();
