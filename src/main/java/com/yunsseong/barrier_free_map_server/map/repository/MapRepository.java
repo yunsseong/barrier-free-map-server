@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface MapRepository extends JpaRepository<BarrierFreeMap, Long> {
     List<BarrierFreeMap> findAllByOwnerId(Long memberId);
-
     Optional<BarrierFreeMap> findByIdAndOwnerId(Long mapId, Long memberId);
-
-    Optional<BarrierFreeMap> findByUuid(String uuid);
+    Optional<BarrierFreeMap> findByNickname(String nickname);
 }

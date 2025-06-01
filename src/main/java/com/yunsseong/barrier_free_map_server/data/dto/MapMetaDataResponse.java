@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class MapMetaDataResponse {
     private String title;
+    private String nickname;
     private String description;
     private String lat;
     private String lng;

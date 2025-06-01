@@ -44,7 +44,7 @@ public class SecurityConfig {
                                 "/api/issue",
                                 "/api/data/**",
                                 "/h2-console/**",
-                                "/api/issues"
+                                "/api/issues/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );

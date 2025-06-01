@@ -5,6 +5,7 @@ import com.yunsseong.barrier_free_map_server.map.domain.MapStatus;
 
 public record UpdateMapRequest(
         String name,
+        String nickname,
         String description,
         MapStatus status,
         Coordinate centralCoordinate

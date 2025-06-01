@@ -12,7 +12,6 @@ import com.yunsseong.barrier_free_map_server.map.repository.MapRepository;
 import com.yunsseong.barrier_free_map_server.member.domain.Member;
 import com.yunsseong.barrier_free_map_server.member.service.MemberService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,8 +42,8 @@ public class MapService {
                 .orElseThrow(() -> new BusinessException(CommonStatus.INVALID_OBJECT));
     }
 
-    public BarrierFreeMap queryMap(String uuid) {
-        BarrierFreeMap map = mapRepository.findByUuid(uuid)
+    public BarrierFreeMap queryMap(String nickname) {
+        BarrierFreeMap map = mapRepository.findByNickname(nickname)
                 .orElseThrow(() -> new BusinessException(CommonStatus.INVALID_INPUT));
         if (map.getStatus().equals(MapStatus.STOPPED)) {
             throw new BusinessException(CommonStatus.UNAUTHORIZED);

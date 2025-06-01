@@ -12,8 +12,8 @@ public class QueryService {
 
     private final MapService mapService;
 
-    public QueryResponse queryResponse(String uuid) {
-        BarrierFreeMap map = mapService.queryMap(uuid);
+    public QueryResponse queryResponse(String nickname) {
+        BarrierFreeMap map = mapService.queryMap(nickname);
         return QueryMapper.toQueryResponse(map);
     }
 }

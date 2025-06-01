@@ -32,4 +32,8 @@ public class IssueService {
                         .build()
         );
     }
+
+    public void deleteIssue(Long issueId) {
+        issueRepository.delete(getIssue(issueId));
+    }
 }

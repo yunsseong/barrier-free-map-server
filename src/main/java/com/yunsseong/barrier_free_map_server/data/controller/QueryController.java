@@ -16,8 +16,8 @@ public class QueryController {
 
     private final QueryService queryService;
 
-    @GetMapping("/api/data/{uuid}")
-    public ResponseEntity<ApiResponse<QueryResponse>> queryMap(@PathVariable String uuid) {
-        return ApiResponseFactory.success(queryService.queryResponse(uuid));
+    @GetMapping("/api/data/{nickname}")
+    public ResponseEntity<ApiResponse<QueryResponse>> queryMap(@PathVariable String nickname) {
+        return ApiResponseFactory.success(queryService.queryResponse(nickname));
     }
 }

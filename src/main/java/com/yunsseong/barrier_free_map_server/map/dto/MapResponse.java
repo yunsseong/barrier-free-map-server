@@ -14,6 +14,7 @@ public record MapResponse(
     Long mapId,
     Long ownerId,
     String name,
+    String nickname,
     String description,
     MapStatus status,
     LocalDateTime createdDate,

@@ -4,18 +4,7 @@ import com.yunsseong.barrier_free_map_server.building.domain.Building;
 import com.yunsseong.barrier_free_map_server.common.domain.Coordinate;
 import com.yunsseong.barrier_free_map_server.point.domain.Point;
 import com.yunsseong.barrier_free_map_server.member.domain.Member;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +28,9 @@ public class BarrierFreeMap {
 
     private String name;
 
+    @Column(unique = true)
+    private String nickname;
+
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -51,8 +43,6 @@ public class BarrierFreeMap {
     private LocalDateTime createdDate;
 
     private LocalDateTime updatedDate;
-
-    private String uuid;
 
     @Embedded
     private Coordinate centralCoordinate;
@@ -80,8 +70,7 @@ public class BarrierFreeMap {
         return new BarrierFreeMapBuilder()
                 .status(MapStatus.STOPPED)
                 .createdDate(now)
-                .updatedDate(now)
-                .uuid(UUID.randomUUID().toString());
+                .updatedDate(now);
     }
 
     public void publish() {

@@ -7,6 +7,7 @@ import lombok.ToString;
 
 public record CreateMapRequest (
     String name,
+    String nickname,
     String description,
     MapStatus status,
     Coordinate centralCoordinate

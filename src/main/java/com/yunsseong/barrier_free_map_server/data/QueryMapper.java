@@ -16,6 +16,7 @@ public class QueryMapper {
                 .metaResponse(
                         MapMetaDataResponse.builder()
                                 .title(map.getName())
+                                .nickname(map.getNickname())
                                 .description(map.getDescription())
                                 .lat(map.getCentralCoordinate().lat().toString())
                                 .lng(map.getCentralCoordinate().lng().toString())
