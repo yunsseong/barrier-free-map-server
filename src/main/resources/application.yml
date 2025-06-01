@@ -5,8 +5,18 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
 
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
+
+  config:
+    import: classpath:application-secret.yml
+
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: lax
+        secure: false
