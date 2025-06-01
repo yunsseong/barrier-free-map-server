@@ -1,5 +1,6 @@
 package com.yunsseong.barrier_free_map_server.auth.controller;
 
+import com.yunsseong.barrier_free_map_server.auth.AuthMeResponse;
 import com.yunsseong.barrier_free_map_server.auth.dto.LoginRequest;
 import com.yunsseong.barrier_free_map_server.common.dto.response.ApiResponse;
 import com.yunsseong.barrier_free_map_server.common.dto.response.ApiResponseFactory;
@@ -54,10 +55,10 @@ public class AuthController {
     }
 
     @GetMapping("/api/auth/me")
-    public ResponseEntity<?> getCurrentUser(Authentication authentication) {
+    public ResponseEntity<ApiResponse<AuthMeResponse>> getCurrentUser(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        return ResponseEntity.ok(authentication.getName());
+        return ApiResponseFactory.success(AuthMeResponse.builder().email(authentication.getName()).build());
     }
 }
