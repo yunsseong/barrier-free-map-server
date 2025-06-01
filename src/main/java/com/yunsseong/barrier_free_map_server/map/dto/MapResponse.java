@@ -18,7 +18,7 @@ public record MapResponse(
     MapStatus status,
     LocalDateTime createdDate,
     LocalDateTime updatedDate,
-    String uuid,
+    String url,
     Coordinate centralCoordinate,
     List<BuildingWithFloorResponse> buildings,
     List<PointResponse> points

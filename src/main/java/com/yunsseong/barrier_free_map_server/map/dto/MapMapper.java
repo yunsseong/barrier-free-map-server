@@ -21,7 +21,7 @@ public class MapMapper {
                 .build();
     }
 
-    public static MapResponse toMapResponse(BarrierFreeMap map) {
+    public static MapResponse toMapResponse(BarrierFreeMap map, String url) {
         return MapResponse.builder()
                 .mapId(map.getId())
                 .ownerId(map.getOwner().getId())
@@ -30,7 +30,7 @@ public class MapMapper {
                 .status(map.getStatus())
                 .createdDate(map.getCreatedDate())
                 .updatedDate(map.getUpdatedDate())
-                .uuid(map.getUuid())
+                .url(url + "/data/" + map.getUuid())
                 .centralCoordinate(map.getCentralCoordinate())
                 .buildings(map.getBuildings().stream()
                         .map(BuildingMapper::toBuildingWithFloorResponse)

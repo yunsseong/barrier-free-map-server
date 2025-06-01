@@ -18,6 +18,9 @@ server:
         same-site: lax
         secure: false
 
+front:
+  url: ${FRONT_URL}
+
 aws:
   s3:
     endpointUrl: ${S3_ENDPOINT}

@@ -15,6 +15,7 @@ import com.yunsseong.barrier_free_map_server.member.service.MemberService;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,14 +25,17 @@ public class MapService {
     private final MapRepository mapRepository;
     private final MemberService memberService;
 
+    @Value("${front.url}")
+    private String frontUrl;
+
     public MapResponse createEmptyMap(CreateMapRequest createMapRequest, Long memberId) {
         Member foundMember = memberService.getMember(memberId);
         BarrierFreeMap map = mapRepository.save(MapMapper.toBarrierFreeMap(createMapRequest, foundMember));
-        return MapMapper.toMapResponse(map);
+        return MapMapper.toMapResponse(map, frontUrl);
     }
 
     public MapResponse getMap(Long mapId, Long memberId) {
-        return MapMapper.toMapResponse(getMapEntity(mapId, memberId));
+        return MapMapper.toMapResponse(getMapEntity(mapId, memberId), frontUrl);
     }
 
     public BarrierFreeMap getMapEntity(Long mapId, Long memberId) {
@@ -68,7 +72,7 @@ public class MapService {
             throw new BusinessException(CommonStatus.UNAUTHORIZED);
         }
         return maps.stream()
-                .map(MapMapper::toMapResponse)
+                .map(map -> MapMapper.toMapResponse(map, frontUrl))
                 .toList();
     }
 
