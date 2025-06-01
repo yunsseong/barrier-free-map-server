@@ -1,10 +1,10 @@
-package com.yunsseong.barrier_free_map_server.complain.controller;
+package com.yunsseong.barrier_free_map_server.issue.controller;
 
 import com.yunsseong.barrier_free_map_server.common.dto.response.ApiResponse;
 import com.yunsseong.barrier_free_map_server.common.dto.response.ApiResponseFactory;
-import com.yunsseong.barrier_free_map_server.complain.IssueRequest;
-import com.yunsseong.barrier_free_map_server.complain.domain.Issue;
-import com.yunsseong.barrier_free_map_server.complain.service.IssueService;
+import com.yunsseong.barrier_free_map_server.issue.IssueRequest;
+import com.yunsseong.barrier_free_map_server.issue.domain.Issue;
+import com.yunsseong.barrier_free_map_server.issue.service.IssueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,17 +16,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/issue")
+@RequestMapping("/api")
 public class IssueController {
 
     private final IssueService issueService;
 
-    @GetMapping
+    @GetMapping("/issues")
     public ResponseEntity<ApiResponse<List<Issue>>> queryIssues() {
         return ApiResponseFactory.success(issueService.getIssues());
     }
 
-    @PostMapping
+    @PostMapping("/issue")
     public ResponseEntity<ApiResponse<Void>> submitIssue(IssueRequest issueRequest) {
         issueService.postIssue(issueRequest);
         return ApiResponseFactory.success();

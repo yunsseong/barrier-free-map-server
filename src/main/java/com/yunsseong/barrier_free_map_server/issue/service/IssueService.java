@@ -1,10 +1,10 @@
-package com.yunsseong.barrier_free_map_server.complain.service;
+package com.yunsseong.barrier_free_map_server.issue.service;
 
 import com.yunsseong.barrier_free_map_server.common.exception.BusinessException;
 import com.yunsseong.barrier_free_map_server.common.exception.CommonStatus;
-import com.yunsseong.barrier_free_map_server.complain.IssueRequest;
-import com.yunsseong.barrier_free_map_server.complain.domain.Issue;
-import com.yunsseong.barrier_free_map_server.complain.repository.IssueRepository;
+import com.yunsseong.barrier_free_map_server.issue.IssueRequest;
+import com.yunsseong.barrier_free_map_server.issue.domain.Issue;
+import com.yunsseong.barrier_free_map_server.issue.repository.IssueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

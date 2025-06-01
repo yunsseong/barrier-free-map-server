@@ -1,4 +1,4 @@
-package com.yunsseong.barrier_free_map_server.complain.domain;
+package com.yunsseong.barrier_free_map_server.issue.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
