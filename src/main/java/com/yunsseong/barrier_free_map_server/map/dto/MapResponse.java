@@ -18,7 +18,8 @@ public record MapResponse(
     MapStatus status,
     LocalDateTime createdDate,
     LocalDateTime updatedDate,
-    String url,
+    String frontUrl,
+    String dataUrl,
     Coordinate centralCoordinate,
     List<BuildingWithFloorResponse> buildings,
     List<PointResponse> points
