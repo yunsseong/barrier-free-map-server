@@ -1,6 +1,6 @@
 INSERT INTO member (id, email, password) VALUES (1, 'test@gmail.com', '$2a$10$C6ZeggiMmEY6NxDUpc1/cuPTGLqCAzNDgqM7T7VDtQc.72re7Ji0y');
 
-INSERT INTO barrier_free_map (id, name, description, status, created_date, updated_date, uuid, lat, lng, owner_id) VALUES (1, '테스트 맵', '기본 맵 설명입니다.', 'DEPLOYING','2025-06-01 07:07:24', '2025-06-01 07:07:24', '6c5031ba-01a7-466f-90e8-cba7ba6cb3ce', 37.29781, 126.835358, 1);
+INSERT INTO barrier_free_map (id, name, description, status, created_date, updated_date, uuid, lat, lng, owner_id) VALUES (1, '한양대 에리카 베리어 프리 맵', '학교 내 베리어 프리 시설 정보를 제공합니다.', 'DEPLOYING','2025-06-01 07:07:24', '2025-06-01 07:07:24', '6c5031ba-01a7-466f-90e8-cba7ba6cb3ce', 37.29781, 126.835358, 1);
 INSERT INTO building (id, name, number, lat, lng, map_id, wheel, toilet, elevator, dots, floorplan, caution) VALUES (1, '아고라 홍보관', '100', 37.3003040337446, 126.83727801591303, 1, TRUE, TRUE, FALSE, FALSE, FALSE, '화장실이 지하에 있으며, 계단 이용만 가능합니다.');
 INSERT INTO building (id, name, number, lat, lng, map_id, wheel, toilet, elevator, dots, floorplan, caution) VALUES (2, '본관', '101', 37.29902786948328, 126.83318092474559, 1, TRUE, TRUE, TRUE, TRUE, TRUE, '');
 INSERT INTO building (id, name, number, lat, lng, map_id, wheel, toilet, elevator, dots, floorplan, caution) VALUES (3, '학생복지관', '102', 37.29801823353328, 126.83444636212754, 1, TRUE, FALSE, TRUE, FALSE, TRUE, '경사로가 있는 곳이 건물의 2층입니다.');
