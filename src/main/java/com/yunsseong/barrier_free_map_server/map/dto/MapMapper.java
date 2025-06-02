@@ -33,7 +33,6 @@ public class MapMapper {
                 .createdDate(map.getCreatedDate())
                 .updatedDate(map.getUpdatedDate())
                 .frontUrl(url + "/" + map.getNickname())
-                .dataUrl(url + "/data/" + map.getNickname())
                 .centralCoordinate(map.getCentralCoordinate())
                 .buildings(map.getBuildings().stream()
                         .map(BuildingMapper::toBuildingWithFloorResponse)

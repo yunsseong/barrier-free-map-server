@@ -57,7 +57,7 @@ public class PointController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<PointResponse>>> getAllPoints(
             @PathVariable Long mapId) {
-        List<Point> points = pointService.getPointsByMapId(mapId);
+        List<Point> points = pointService.getPoints(mapId);
         List<PointResponse> pointResponses = points.stream()
                 .map(PointMapper::toPointResponse)
                 .collect(Collectors.toList());
@@ -67,8 +67,9 @@ public class PointController {
     @GetMapping("/{poiId}")
     public ResponseEntity<ApiResponse<PointResponse>> getPoint(
             @PathVariable Long mapId,
-            @PathVariable Long poiId) {
-        Point point = pointService.getPointForMap(mapId, poiId);
+            @PathVariable Long poiId,
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+        Point point = pointService.getPointForMap(mapId, poiId, userDetails.getMemberId());
         PointResponse pointResponse = PointMapper.toPointResponse(point);
         return ApiResponseFactory.success(pointResponse);
     }

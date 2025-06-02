@@ -20,7 +20,6 @@ public record MapResponse(
     LocalDateTime createdDate,
     LocalDateTime updatedDate,
     String frontUrl,
-    String dataUrl,
     Coordinate centralCoordinate,
     List<BuildingWithFloorResponse> buildings,
     List<PointResponse> points

@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PointService {
 
     private final PointRepository pointRepository;
@@ -39,65 +40,44 @@ public class PointService {
         return pointRepository.save(point);
     }
 
-    @Transactional(readOnly = true)
-    public Point getPoint(Long pointId) {
-        return pointRepository.findById(pointId)
+    public Point getPoint(Long pointId, Long memberId) {
+        Point point = pointRepository.findById(pointId)
                 .orElseThrow(() -> new BusinessException(CommonStatus.INVALID_OBJECT));
+        if (!point.getMap().getOwner().equals(memberId)) {
+            throw new BusinessException(CommonStatus.UNAUTHORIZED);
+        }
+        return point;
     }
 
     @Transactional
     public Point updatePoint(Long mapId, Long pointId, PointRequest pointRequest, Long memberId) {
-        BarrierFreeMap map = mapService.getMapEntity(mapId, memberId);
-        Member owner = map.getOwner();
-
-        if (!owner.getId().equals(memberId)) {
-            throw new BusinessException(CommonStatus.UNAUTHORIZED);
-        }
-
-        Point point = getPoint(pointId);
-
-        if (!point.getMap().getId().equals(mapId)) {
-            throw new BusinessException(CommonStatus.INVALID_OBJECT);
-        }
-
+        Point point = getPoint(pointId, memberId);
         point.setCoordinate(pointRequest.coordinate());
         point.setMemo(pointRequest.memo());
         point.setType(pointRequest.type());
-
         return pointRepository.save(point);
     }
 
     @Transactional
     public void deletePoint(Long mapId, Long pointId, Long memberId) {
-        BarrierFreeMap map = mapService.getMapEntity(mapId, memberId);
-        Member owner = map.getOwner();
-
-        if (!owner.getId().equals(memberId)) {
-            throw new BusinessException(CommonStatus.UNAUTHORIZED);
-        }
-
-        Point point = getPoint(pointId);
-
-        if (!point.getMap().getId().equals(mapId)) {
-            throw new BusinessException(CommonStatus.INVALID_OBJECT);
-        }
-
+        Point point = getPoint(pointId, memberId);
         pointRepository.delete(point);
     }
 
-    @Transactional(readOnly = true)
-    public List<Point> getPointsByMapId(Long mapId) {
+    public List<Point> getPoints(Long mapId) {
         return pointRepository.findByMapId(mapId);
     }
 
-    @Transactional(readOnly = true)
-    public Point getPointForMap(Long mapId, Long pointId) {
-        Point point = getPoint(pointId);
 
-        if (!point.getMap().getId().equals(mapId)) {
-            throw new BusinessException(CommonStatus.INVALID_OBJECT);
+    public Point getPointForMap(Long mapId, Long pointId, Long memberId) {
+        return getPoint(mapId, memberId);
+    }
+
+    public Long getPointCount(Long mapId, Long memberId) {
+        List<Point> points = getPoints(mapId);
+        if(!points.getFirst().getMap().getOwner().equals(memberId)) {
+            throw new BusinessException(CommonStatus.UNAUTHORIZED);
         }
-
-        return point;
+        return points.stream().count();
     }
 }

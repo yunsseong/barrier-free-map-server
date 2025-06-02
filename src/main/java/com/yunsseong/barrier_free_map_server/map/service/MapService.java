@@ -62,17 +62,27 @@ public class MapService {
         mapRepository.delete(map);
     }
 
+    public List<BarrierFreeMap> getAllMapEntity(Long memberId) {
+        List<BarrierFreeMap> maps = mapRepository.findAllByOwnerId(memberId);
+        if (!maps.getFirst().getOwner().getId().equals(memberId)){
+            throw new BusinessException(CommonStatus.UNAUTHORIZED);
+        }
+        return maps;
+    }
+
     public List<MapResponse> getAllMaps(Long memberId) {
         List<BarrierFreeMap> maps = mapRepository.findAllByOwnerId(memberId);
-        if (maps.isEmpty()) {
-            throw new BusinessException(CommonStatus.INVALID_OBJECT);
-        }
         if (!maps.getFirst().getOwner().getId().equals(memberId)){
             throw new BusinessException(CommonStatus.UNAUTHORIZED);
         }
         return maps.stream()
                 .map(map -> MapMapper.toMapResponse(map, frontUrl))
                 .toList();
+    }
+
+    public BarrierFreeMap getMapByCode(String code) {
+        return mapRepository.findByNickname(code)
+                .orElseThrow(() -> new BusinessException(CommonStatus.INVALID_INPUT));
     }
 
     public void publishMap(Long mapId, Long memberId) {
