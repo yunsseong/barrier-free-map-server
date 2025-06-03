@@ -50,14 +50,17 @@ public class BarrierFreeMap {
 
     @Builder.Default
     @OneToMany(mappedBy = "map", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id ASC")
     private List<Building> buildings = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "map", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id ASC")
     private List<Point> points = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "map", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id ASC")
     private List<Issue> issues = new ArrayList<>();
 
     public void addBuilding(Building building){
