@@ -16,6 +16,6 @@ public class ImageController {
 
     @PostMapping("/upload-url")
     public ResponseEntity<ApiResponse<PresignedUrlResponse>> getPresignedUrl(@RequestBody ImageRequest fileName) {
-        return ApiResponseFactory.success(imageService.generatePresignedUrl("plans/" + fileName));
+        return ApiResponseFactory.success(imageService.generatePresignedUrl("plans/" + fileName.fileName()));
     }
 }
