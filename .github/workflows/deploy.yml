@@ -26,6 +26,9 @@ jobs:
             options:
               ports: "8080"
               env:
+                - name: JAVA_OPTS
+                  value: >-
+                    -Xms64m -Xmx128m -XX:MaxMetaspaceSize=64m -XX:+UseSerialGC -XX:+AlwaysPreTouch -XX:+ExitOnOutOfMemoryError
                 - name: S3_ENDPOINT
                   secret: S3_ENDPOINT
                 - name: S3_REGION
