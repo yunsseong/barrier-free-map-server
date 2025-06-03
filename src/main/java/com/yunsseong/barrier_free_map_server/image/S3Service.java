@@ -3,6 +3,7 @@ package com.yunsseong.barrier_free_map_server.image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
@@ -16,6 +17,7 @@ import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class S3Service {
 
     private final S3Presigner s3Presigner;

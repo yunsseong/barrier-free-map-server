@@ -16,9 +16,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MapService {
 
     private final MapRepository mapRepository;
@@ -27,6 +29,7 @@ public class MapService {
     @Value("${front.url}")
     private String frontUrl;
 
+    @Transactional
     public MapResponse createEmptyMap(CreateMapRequest createMapRequest, Long memberId) {
         Member foundMember = memberService.getMember(memberId);
         BarrierFreeMap map = mapRepository.save(MapMapper.toBarrierFreeMap(createMapRequest, foundMember));
@@ -51,12 +54,14 @@ public class MapService {
         return map;
     }
 
+    @Transactional
     public void updateMap(Long mapId, UpdateMapRequest updateMapRequest, Long memberId) {
         BarrierFreeMap map = getMapEntity(mapId, memberId);
         BarrierFreeMap updatedMap = MapMapper.toUpdatedMap(map, updateMapRequest);
         mapRepository.save(updatedMap);
     }
 
+    @Transactional
     public void deleteMap(Long mapId, Long memberId) {
         BarrierFreeMap map = getMapEntity(mapId, memberId);
         mapRepository.delete(map);
@@ -64,7 +69,7 @@ public class MapService {
 
     public List<BarrierFreeMap> getAllMapEntity(Long memberId) {
         List<BarrierFreeMap> maps = mapRepository.findAllByOwnerId(memberId);
-        if (!maps.getFirst().getOwner().getId().equals(memberId)){
+        if (!maps.isEmpty() && !maps.getFirst().getOwner().getId().equals(memberId)){
             throw new BusinessException(CommonStatus.UNAUTHORIZED);
         }
         return maps;
@@ -85,12 +90,14 @@ public class MapService {
                 .orElseThrow(() -> new BusinessException(CommonStatus.INVALID_INPUT));
     }
 
+    @Transactional
     public void publishMap(Long mapId, Long memberId) {
         BarrierFreeMap map = getMapEntity(mapId, memberId);
         map.publish();
         mapRepository.save(map);
     }
 
+    @Transactional
     public void unpublishMap(Long mapId, Long memberId) {
         BarrierFreeMap map = getMapEntity(mapId, memberId);
         map.unpublish();

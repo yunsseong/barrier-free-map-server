@@ -6,11 +6,13 @@ import com.yunsseong.barrier_free_map_server.map.domain.BarrierFreeMap;
 import com.yunsseong.barrier_free_map_server.map.service.MapService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class QueryService {
 
     private final MapService mapService;

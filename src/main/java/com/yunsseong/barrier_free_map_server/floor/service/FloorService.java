@@ -10,6 +10,7 @@ import com.yunsseong.barrier_free_map_server.floor.dto.FloorMapper;
 import com.yunsseong.barrier_free_map_server.floor.dto.FloorResponse;
 import com.yunsseong.barrier_free_map_server.floor.dto.UpdateFloorRequest;
 import com.yunsseong.barrier_free_map_server.floor.repository.FloorRepository;
+import com.yunsseong.barrier_free_map_server.image.ImageService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,7 @@ public class FloorService {
 
     private final BuildingService buildingService;
     private final FloorRepository floorRepository;
+    private final ImageService imageService;
 
     @Value("${aws.s3.publicUrl}")
     private String publicUrl;

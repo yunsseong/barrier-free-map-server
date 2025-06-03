@@ -3,21 +3,22 @@ package com.yunsseong.barrier_free_map_server.image;
 import com.yunsseong.barrier_free_map_server.common.exception.BusinessException;
 import com.yunsseong.barrier_free_map_server.common.exception.CommonStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ImageService {
 
     private final S3Service s3Service;
 
     public PresignedUrlResponse generatePresignedUrl(String key, String contentType) {
-
         return PresignedUrlResponse.builder()
-                .url(s3Service.generatePresignedUploadUrl(key, contentType, Duration.ofMinutes(5)))
-                .key(key)
+                .uploadUrl(s3Service.generatePresignedUploadUrl(key, contentType, Duration.ofMinutes(5)))
                 .build();
     }
 
