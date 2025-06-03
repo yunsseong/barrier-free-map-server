@@ -25,11 +25,10 @@ public class S3Service {
     @Value("${aws.s3.bucketName}")
     private String bucketName;
 
-    public String generatePresignedUploadUrl(String key, String contentType, Duration expiration) {
+    public String generatePresignedUploadUrl(String key, Duration expiration) {
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
-                .contentType(contentType)
                 .build();
 
         PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()

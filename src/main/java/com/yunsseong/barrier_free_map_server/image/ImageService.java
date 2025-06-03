@@ -2,6 +2,7 @@ package com.yunsseong.barrier_free_map_server.image;
 
 import com.yunsseong.barrier_free_map_server.common.exception.BusinessException;
 import com.yunsseong.barrier_free_map_server.common.exception.CommonStatus;
+import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,9 @@ public class ImageService {
 
     private final S3Service s3Service;
 
-    public PresignedUrlResponse generatePresignedUrl(String key, String contentType) {
+    public PresignedUrlResponse generatePresignedUrl(String key) {
         return PresignedUrlResponse.builder()
-                .uploadUrl(s3Service.generatePresignedUploadUrl(key, contentType, Duration.ofMinutes(5)))
+                .uploadUrl(s3Service.generatePresignedUploadUrl(key, Duration.ofMinutes(5)))
                 .build();
-    }
-
-    public void contentTypeChecker(String contentType) {
-        String type = contentType.split("\\.")[1];
-        if (!type.equals("png") && !type.equals("jpeg") && !type.equals("jpg"))
-            throw new BusinessException(CommonStatus.INVALID_INPUT);
     }
 }
